@@ -7,14 +7,36 @@
     </ul> -->
 
     <!-- Start Consumer Recruiting Quotas -->
-    <div class="row">
+    <!--<div class="row">
       <div class="col-md-3">Segment {{segments}}</div>
       <div class="col-md-3"><select v-model="selected" id="skuSelect"><option v-for="(sku, index) in skus" v-if='sku["Product Family"] == "Recruiting"' :value="+index">{{ sku["Product Name"] }}</option></select></div>
       <div class="col-md-2"><input v-model="quantity" type="number" min="1"/></div>
       <div class="col-md-2"><select v-model="translator"><option value="199">Yes</option><option value="0">No</option></select></div>
       <div class="col-md-2">${{ calcPrice }}</div>
 
-    </div>
+    </div>-->
+
+    <table class="table">
+      <thead>
+      <tr v-show="segments == 1">
+        <th><div class="col-md-3">Consumer Segments</div></th>
+        <th><div class="col-md-3">Geography</div></th>
+        <th><div class="col-md-2">Quantity</div></th>
+        <th><div class="col-md-2">Translator?</div></th>
+        <th><div class="col-md-2">Price</div></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><div class="col-md-3">Segment #{{segments}}</div></td>
+        <td><div class="col-md-3"><select v-model="selected" id="skuSelect"><option v-for="(sku, index) in skus" v-if='sku["Product Family"] == "Recruiting"' :value="+index">{{ sku["Product Name"] }}</option></select></div></td>
+        <td><div class="col-md-2"><input v-model="quantity" type="number" min="1"/></div></td>
+        <td><div class="col-md-2"><select v-model="translator"><option value="199">Yes</option><option value="0">No</option></select></div></td>
+        <td><div class="col-md-2">${{ calcPrice }}</div></td>
+      </tr>
+      </tbody>
+
+      </table>
   </div>
   <!-- End Consumer Recruiting Quotas -->
 

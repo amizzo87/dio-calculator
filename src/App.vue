@@ -2,14 +2,7 @@
   <div id="app">
     <projectrow></projectrow>
   <br />
-    <input v-model="segments" type="number" min="1"/>
-    <div class="row">
-      <div class="col-md-3">Consumer Segments</div>
-      <div class="col-md-3">Geography</div>
-      <div class="col-md-2">Quantity</div>
-      <div class="col-md-2">Translator?</div>
-      <div class="col-md-2">Price</div>
-    </div>
+    <div style="text-align:center;"><label>Number of Segments</label><input v-model="segments" type="number" min="1"/></div>
     <recruitingrow v-for="n in segments" v-bind:segments="n"></recruitingrow>
     <servicesrow></servicesrow>
     <div class="col-md-2"><label>Total Price (estimated) ${{ totalPrice }}</label></div>
@@ -75,6 +68,9 @@ export default {
       this.nodePrices.push(newPrice);
 
 
+    },
+    adjSessionQty: function (sessionQty) {
+
     }
     },
   created() {
@@ -82,6 +78,7 @@ export default {
     eventHub.$on('recruitingPrice', this.addPrice);
     eventHub.$on('projectRowPrice', this.addPrice);
     eventHub.$on('servicesRowPrice', this.addPrice);
+    eventHub.$on('sessionQty', this.adjSessionQty);
   }
 }
 </script>

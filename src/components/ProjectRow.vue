@@ -35,6 +35,7 @@ export default {
   methods: {
   priceEvent: function (price) {
     eventHub.$emit('projectRowPrice', {id: 0, atts: [{ price: price, node: 0, time: new Date().getTime()}]});
+    eventHub.$emit('sessionQty', this.sessionQty);
     }
   },
   watch: {

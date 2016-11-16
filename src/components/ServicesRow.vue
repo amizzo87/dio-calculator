@@ -51,13 +51,17 @@ export default {
       moderatorBriefing: 0,
       humanTranscription: 0,
       moderation: 0,
-      totalServices: 0
+      totalServices: 0,
+      sessionQty: 1
     }
   },
   methods: {
   priceEvent: function (price) {
     eventHub.$emit('servicesRowPrice', {id: "servicesRow", atts: [{ price: price, node: 0, time: new Date().getTime()}]});
-    }
+    },
+  adjSessionQty: function (sessionQty) {
+  this.sessionQty = sessionQty;
+  }
   },
   watch: {
   totalServices: function() {
@@ -72,9 +76,13 @@ export default {
   computed: {
   sumServices: function() {
     var total = +this.surveyProgramming + +this.reportWriting + +this.discussionGuide + +this.moderatorBriefing + +this.humanTranscription + +this.moderation;
-    this.priceEvent(total);
+    this.priceEvent(total*this.sessionQty);
 
   }
+  },
+  created() {
+
+    eventHub.$on('sessionQty', this.adjSessionQty);
   }
 }
 </script>
