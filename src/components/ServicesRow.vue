@@ -5,31 +5,31 @@
 <table class="table">
   <thead>
 <tr>
-  <th><div class="col-md-4">Add-on Services</div></th>
-  <th><div class="col-md-3">Add?</div></th>
-  <th><div class="col-md-3"></div></th>
-  <th><div class="col-md-2">Price</div></th>
+  <th>Add-on Services</th>
+  <th>Add?</th>
+  <th></th>
+  <th>Price (per session)</th>
 </tr>
 </thead>
   <tbody>
 
   <tr>
-  <td><div class="col-md-4">Survey Programming</div></td><td><div class="col-md-3"><select v-model="surveyProgramming"><option value="999">Yes</option><option value="0">No</option></select></div></td><td><div class="col-md-3"></div></td><td><div class="col-md-2">${{surveyProgramming}}</div></td>
+  <td>Survey Programming</td><td><select v-model="surveyProgramming"><option value="999">Yes</option><option value="0">No</option></select></td><td></td><td>${{surveyProgramming}}</td>
 </tr>
 <tr>
-  <td><div class="col-md-4">Report Writing</div></td><td><div class="col-md-3"><select v-model="reportWriting"><option value="1500">Yes</option><option value="0">No</option></select></div></td><td><div class="col-md-3"></div></td><td><div class="col-md-2">${{reportWriting}}</div></td>
+  <td>Report Writing</td><td><select v-model="reportWriting"><option value="1500">Yes</option><option value="0">No</option></select></td><td></td><td>${{reportWriting}}</td>
 </tr>
 <tr>
-  <td><div class="col-md-4">Discussion Guide</div></td><td><div class="col-md-3"><select v-model="discussionGuide"><option value="500">Yes</option><option value="0">No</option></select></div></td><td><div class="col-md-3"></div></td><td><div class="col-md-2">${{discussionGuide}}</div></td>
+  <td>Discussion Guide</td><td><select v-model="discussionGuide"><option value="500">Yes</option><option value="0">No</option></select></td><td></td><td>${{discussionGuide}}</td>
 </tr>
 <tr>
-  <td><div class="col-md-4">Moderator Briefing</div></td><td><div class="col-md-3"><select v-model="moderatorBriefing"><option value="500">Yes</option><option value="0">No</option></select></div></td><td><div class="col-md-3"></div></td><td><div class="col-md-2">${{moderatorBriefing}}</div></td>
+  <td>Moderator Briefing</td><td><select v-model="moderatorBriefing"><option value="500">Yes</option><option value="0">No</option></select></td><td></td><td>${{moderatorBriefing}}</td>
 </tr>
 <tr>
-  <td><div class="col-md-4">Human Transcription</div></td><td><div class="col-md-3"><select v-model="humanTranscription"><option value="135">Yes</option><option value="0">No</option></select></div></td><td><div class="col-md-3"></div></td><td><div class="col-md-2">${{humanTranscription}}</div></td>
+  <td>Human Transcription</td><td><select v-model="humanTranscription"><option value="135">Yes</option><option value="0">No</option></select></td><td></td><td>${{humanTranscription}}</td>
 </tr>
 <tr>
-  <td><div class="col-md-4">Moderation</div></td><td><div class="col-md-3"><select v-model="moderation"><option value="500">Yes</option><option value="0">No</option></select></div></td><td><div class="col-md-3"></div></td><td><div class="col-md-2">${{moderation}}</div></td>
+  <td>Moderation</td><td><select v-model="moderation"><option value="500">Yes</option><option value="0">No</option></select></td><td></td><td>${{moderation}}</td>
 </tr>
 </tbody>
   </table>

@@ -1,38 +1,23 @@
 <template>
   <div class="container-fluid" id="recruitingrow">
-    <!-- <ul>
-      <li v-for="(sku, index) in skus">
-        {{ index }} - {{ sku["Product Name"] }}
-      </li>
-    </ul> -->
-
-    <!-- Start Consumer Recruiting Quotas -->
-    <!--<div class="row">
-      <div class="col-md-3">Segment {{segments}}</div>
-      <div class="col-md-3"><select v-model="selected" id="skuSelect"><option v-for="(sku, index) in skus" v-if='sku["Product Family"] == "Recruiting"' :value="+index">{{ sku["Product Name"] }}</option></select></div>
-      <div class="col-md-2"><input v-model="quantity" type="number" min="1"/></div>
-      <div class="col-md-2"><select v-model="translator"><option value="199">Yes</option><option value="0">No</option></select></div>
-      <div class="col-md-2">${{ calcPrice }}</div>
-
-    </div>-->
 
     <table class="table">
       <thead>
       <tr v-show="segments == 1">
-        <th><div class="col-md-3">Consumer Segments</div></th>
-        <th><div class="col-md-3">Geography</div></th>
-        <th><div class="col-md-2">Quantity</div></th>
-        <th><div class="col-md-2">Translator?</div></th>
-        <th><div class="col-md-2">Price</div></th>
+        <th>Consumer Segments</th>
+        <th>Geography</th>
+        <th>Quantity</th>
+        <th>Translator?</th>
+        <th>Price</th>
       </tr>
       </thead>
       <tbody>
       <tr>
-        <td><div class="col-md-3">Segment #{{segments}}</div></td>
-        <td><div class="col-md-3"><select v-model="selected" id="skuSelect"><option v-for="(sku, index) in skus" v-if='sku["Product Family"] == "Recruiting"' :value="+index">{{ sku["Product Name"] }}</option></select></div></td>
-        <td><div class="col-md-2"><input v-model="quantity" type="number" min="1"/></div></td>
-        <td><div class="col-md-2"><select v-model="translator"><option value="199">Yes</option><option value="0">No</option></select></div></td>
-        <td><div class="col-md-2">${{ calcPrice }}</div></td>
+        <td>Segment #{{segments}}</td>
+        <td><select v-model="selected" id="skuSelect"><option v-for="(sku, index) in skus" v-if='sku["Product Family"] == "Recruiting"' :value="+index">{{ sku["Product Name"] }}</option></select></td>
+        <td><input v-model="quantity" type="number" min="1"/></td>
+        <td><select v-model="translator"><option value="199">Yes</option><option value="0">No</option></select></td>
+        <td>${{ calcPrice }}</td>
       </tr>
       </tbody>
 

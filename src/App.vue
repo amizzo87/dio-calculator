@@ -1,11 +1,12 @@
 <template>
   <div id="app">
     <projectrow></projectrow>
-  <br />
-    <div style="text-align:center;"><label>Number of Segments</label><input v-model="segments" type="number" min="1"/></div>
+    <br />
+    <br />
+    <div style="text-align:center;"><label>Number of Consumer Segments:</label> <input v-model="segments" type="number" min="1"/></div>
     <recruitingrow v-for="n in segments" v-bind:segments="n"></recruitingrow>
     <servicesrow></servicesrow>
-    <div class="col-md-2"><label>Total Price (estimated) ${{ totalPrice }}</label></div>
+    <div class="col-md-2"><label>Total Price (estimated): ${{ totalPrice }}</label></div>
   </div>
 </template>
 
@@ -27,7 +28,7 @@ export default {
   data () {
     return {
       segments: 1,
-      totalPrice: 0,
+      totalPrice: 299,
       nodePrices: []
     }
     },
@@ -48,7 +49,7 @@ export default {
       for (var i in this.nodePrices) {
         sumPrice += this.nodePrices[i]["atts"][0]["price"];
       }
-      this.totalPrice = sumPrice;
+      this.totalPrice = ( sumPrice == 0 ? this.totalPrice : sumPrice );
     }
     }
     },
@@ -88,7 +89,7 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /* text-align: center; */
   color: #2c3e50;
   margin-top: 60px;
 }
