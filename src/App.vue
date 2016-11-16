@@ -1,9 +1,8 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
     <projectrow></projectrow>
   <br />
-    <input v-model="segments" type="number" min="1"/><
+    <input v-model="segments" type="number" min="1"/>
     <div class="row">
       <div class="col-md-3">Consumer Segments</div>
       <div class="col-md-3">Geography</div>
@@ -12,7 +11,8 @@
       <div class="col-md-2">Price</div>
     </div>
     <recruitingrow v-for="n in segments" v-bind:segments="n"></recruitingrow>
-    <!-- <div class="col-md-2">${{ totalPrice }}</div> -->
+    <servicesrow></servicesrow>
+    <div class="col-md-2"><label>Total Price (estimated) ${{ totalPrice }}</label></div>
   </div>
 </template>
 
@@ -38,17 +38,50 @@ export default {
       nodePrices: []
     }
     },
+    watch: {
+    segments: function (newVal, oldVal) {
+    if (oldVal > newVal) {
+
+    this.nodePrices = this.nodePrices.filter(function(el) {
+          return el.id !== oldVal;
+        });
+
+    }
+    },
+    nodePrices: function () {
+
+    if(this.nodePrices.length > 0) {
+    var sumPrice = 0;
+      for (var i in this.nodePrices) {
+        sumPrice += this.nodePrices[i]["atts"][0]["price"];
+      }
+      this.totalPrice = sumPrice;
+    }
+    }
+    },
+
     methods: {
     addPrice: function (newPrice) {
-    console.log(newPrice);
-    this.nodePrices.push(newPrice);
+    // console.log(newPrice);
+
+
+      if(this.nodePrices.length > 0) {
+      for (var i in this.nodePrices) {
+        this.nodePrices = this.nodePrices.filter(function(el) {
+          return el.id !== newPrice.id;
+        });
+      }
+      }
+      this.nodePrices.push(newPrice);
+
 
     }
     },
   created() {
   console.log('created');
-    eventHub.$on('calculatedPrice', this.addPrice);
-
+    eventHub.$on('recruitingPrice', this.addPrice);
+    eventHub.$on('projectRowPrice', this.addPrice);
+    eventHub.$on('servicesRowPrice', this.addPrice);
   }
 }
 </script>

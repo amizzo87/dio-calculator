@@ -11,14 +11,12 @@
           <option value="6">6 Consumers (Focus Group)</option>
         </select>
       </div>
-      </div>
-    <div class="row">
       <div class="col-md-3">
     <label>Quantity of Sessions</label>
       <input v-model="sessionQty" type="number" min="1" />
     </div>
       <div class="col-md-6"></div>
-      <div class="col-md-3"><label>Technology and Hosting</label>${{ techPrice }} </div>
+      <div class="col-md-3"><label>Technology and Hosting</label> ${{ techPrice }} </div>
       </div>
 </div>
 </template>
@@ -34,9 +32,22 @@ export default {
       sessionQty: 1
     }
   },
+  methods: {
+  priceEvent: function (price) {
+    eventHub.$emit('projectRowPrice', {id: 0, atts: [{ price: price, node: 0, time: new Date().getTime()}]});
+    }
+  },
+  watch: {
+  sessionQty: function() {
+        var sessionPrice = this.sessionQty * 299;
+        this.techPrice = sessionPrice;
+        this.priceEvent(sessionPrice);
+
+  }
+  },
   calculated: {
   sumPrice: function () {
-    this.techPrice = this.sessionQty * 299;
+    // return this.techPrice = this.sessionQty * 299;
 
   }
 

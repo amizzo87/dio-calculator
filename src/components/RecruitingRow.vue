@@ -47,7 +47,7 @@ export default {
       return +index;
     },
     priceEvent: function (price) {
-    eventHub.$emit('calculatedPrice', { price: price, node: this.segments, time: new Date().getTime()});
+    eventHub.$emit('recruitingPrice', {id: this.segments, atts: [{ price: price, node: this.segments, time: new Date().getTime()}] });
     },
     selected: function () {
     return true;

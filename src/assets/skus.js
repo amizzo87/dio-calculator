@@ -122,7 +122,7 @@ var skus = [
   {
     'Product Name': 'Reschedule',
     'List Price': 99,
-    'Product Family': 'Recruiting'
+    'Product Family': 'Recruiting - Other'
   },
   {
     'Product Name': 'Recruiting - Other Geography',
@@ -132,7 +132,7 @@ var skus = [
   {
     'Product Name': 'Incentives',
     'List Price': 0,
-    'Product Family': 'Recruiting'
+    'Product Family': 'Recruiting - Other'
   },
   {
     'Product Name': 'Survey Programming',
