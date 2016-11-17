@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid" id="recruitingrow">
+  <div class="col-md-12" id="recruitingrow">
 
     <table class="table">
       <thead>
@@ -13,11 +13,11 @@
       </thead>
       <tbody>
       <tr>
-        <td>Segment #{{segments}}</td>
-        <td><select v-model="selected" id="skuSelect"><option v-for="(sku, index) in skus" v-if='sku["Product Family"] == "Recruiting"' :value="+index">{{ sku["Product Name"] }}</option></select></td>
-        <td><input v-model="quantity" type="number" min="1"/></td>
+        <td style="width:400px;">Segment #{{segments}}</td>
+        <td style="width:100px;"><select v-model="selected" id="skuSelect"><option v-for="(sku, index) in skus" v-if='sku["Product Family"] == "Recruiting"' :value="+index">{{ sku["Product Name"] }}</option></select></td>
+        <td style="width:50px;"><input v-model="quantity" type="number" min="1"/></td>
         <td><select v-model="translator"><option value="199">Yes</option><option value="0">No</option></select></td>
-        <td>${{ calcPrice }}</td>
+        <td style="width:50px;">${{ calcPrice }}</td>
       </tr>
       </tbody>
 

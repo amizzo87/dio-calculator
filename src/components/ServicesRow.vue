@@ -6,7 +6,7 @@
   <thead>
 <tr>
   <th>Add-on Services</th>
-  <th>Add?</th>
+  <th>Include?</th>
   <th></th>
   <th>Price (per session)</th>
 </tr>

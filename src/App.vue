@@ -3,10 +3,10 @@
     <projectrow></projectrow>
     <br />
     <br />
-    <div style="text-align:center;"><label>Number of Consumer Segments:</label> <input v-model="segments" type="number" min="1"/></div>
+    <div style="text-align:center;"><label>Number of Consumer Segments:</label> <input v-model="segments" type="number" min="1" max="5"/></div>
     <recruitingrow v-for="n in segments" v-bind:segments="n"></recruitingrow>
     <servicesrow></servicesrow>
-    <div class="col-md-2"><label>Total Price (estimated): ${{ totalPrice }}</label></div>
+    <div style="text-align:center;"><label>Total Price (estimated): ${{ totalPrice }}</label></div>
   </div>
 </template>
 
@@ -49,7 +49,9 @@ export default {
       for (var i in this.nodePrices) {
         sumPrice += this.nodePrices[i]["atts"][0]["price"];
       }
-      this.totalPrice = ( sumPrice == 0 ? this.totalPrice : sumPrice );
+      // this.totalPrice = ( sumPrice == 0 ? this.totalPrice : sumPrice );
+      this.totalPrice = ( sumPrice < 299 ? sumPrice + 299 : sumPrice );
+
     }
     }
     },
@@ -91,6 +93,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   /* text-align: center; */
   color: #2c3e50;
-  margin-top: 60px;
+  margin: 60px;
 }
 </style>
