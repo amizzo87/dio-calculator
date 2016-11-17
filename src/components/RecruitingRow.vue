@@ -6,7 +6,7 @@
       <tr v-show="segments == 1">
         <th>Consumer Segments</th>
         <th>Geography</th>
-        <th>Quantity</th>
+        <th>No. of Participants</th>
         <th>Translator?</th>
         <th>Price</th>
       </tr>

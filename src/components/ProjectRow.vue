@@ -8,7 +8,7 @@
       </thead>
       <tbody>
       <tr>
-        <td><select>
+        <td><select v-model="participants">
           <option value="1">1 Consumer (1v1)</option>
           <option value="2">2 Consumers (Dyad)</option>
           <option value="3">3 Consumers (Triad)</option>
@@ -32,13 +32,18 @@ export default {
   data () {
     return {
       techPrice: 299,
-      sessionQty: 1
+      sessionQty: 1,
+      participants: 1
     }
   },
   methods: {
   priceEvent: function (price) {
     eventHub.$emit('projectRowPrice', {id: 0, atts: [{ price: price, node: 0, time: new Date().getTime()}]});
     eventHub.$emit('sessionQty', this.sessionQty);
+
+    },
+    participantEvent: function (val) {
+    eventHub.$emit('minParticipants', val);
     }
   },
   watch: {
@@ -46,7 +51,14 @@ export default {
         var sessionPrice = this.sessionQty * 299;
         this.techPrice = sessionPrice;
         this.priceEvent(sessionPrice);
+        this.participantEvent(this.sessionQty * this.participants);
 
+  },
+  participants: function (newVal, oldVal) {
+  this.participants = newVal;
+  this.participantEvent(this.sessionQty * this.participants);
+
+  // this.broadcastEvent();
   }
   },
   calculated: {

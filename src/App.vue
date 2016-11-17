@@ -3,7 +3,9 @@
     <projectrow></projectrow>
     <br />
     <br />
+    <div style="text-align:center;"><label>Minimum No. of Participants:</label> {{ minParticipants }} </div>
     <div style="text-align:center;"><label>Number of Consumer Segments:</label> <input v-model="segments" type="number" min="1" max="5"/></div>
+    <br />
     <recruitingrow v-for="n in segments" v-bind:segments="n"></recruitingrow>
     <servicesrow></servicesrow>
     <div style="text-align:center;"><label>Total Price (estimated): ${{ totalPrice }}</label></div>
@@ -29,6 +31,7 @@ export default {
     return {
       segments: 1,
       totalPrice: 299,
+      minParticipants: 1,
       nodePrices: []
     }
     },
@@ -74,14 +77,18 @@ export default {
     },
     adjSessionQty: function (sessionQty) {
 
+    },
+    adjMinParticipants: function (total) {
+      this.minParticipants = total;
     }
     },
   created() {
-  console.log('created');
+    console.log('created');
     eventHub.$on('recruitingPrice', this.addPrice);
     eventHub.$on('projectRowPrice', this.addPrice);
     eventHub.$on('servicesRowPrice', this.addPrice);
     eventHub.$on('sessionQty', this.adjSessionQty);
+    eventHub.$on('minParticipants', this.adjMinParticipants);
   }
 }
 </script>
