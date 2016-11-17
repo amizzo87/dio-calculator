@@ -31,6 +31,7 @@ export default {
     return {
       segments: 1,
       totalPrice: 299,
+      techAdded: false,
       minParticipants: 1,
       nodePrices: []
     }
@@ -52,10 +53,15 @@ export default {
       for (var i in this.nodePrices) {
         sumPrice += this.nodePrices[i]["atts"][0]["price"];
       }
-      // this.totalPrice = ( sumPrice == 0 ? this.totalPrice : sumPrice );
-      this.totalPrice = ( sumPrice < 299 ? sumPrice + 299 : sumPrice );
+
+      /* FIX THIS */
+       this.totalPrice = ( sumPrice == 0 ? this.totalPrice : sumPrice + 299 );
+      // this.totalPrice = ( this.techAdded ? sumPrice : sumPrice + 299);
 
     }
+
+
+
     }
     },
 
@@ -76,7 +82,7 @@ export default {
 
     },
     adjSessionQty: function (sessionQty) {
-
+      // this.totalPrice = this.totalPrice + (sessionQty * 299);
     },
     adjMinParticipants: function (total) {
       this.minParticipants = total;
