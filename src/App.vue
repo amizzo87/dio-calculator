@@ -3,12 +3,13 @@
     <projectrow></projectrow>
     <br />
     <br />
-    <div style="text-align:center;"><label>Minimum No. of Participants:</label> {{ minParticipants }} </div>
+    <div style="text-align:center;"><label>Required No. of Participants:</label> {{ minParticipants }} </div>
+    <div style="text-align:center;" v-bind:style="countSync"><label>Current No. of Participants:</label> {{ participantCount }} </div>
     <div style="text-align:center;"><label>Number of Consumer Segments:</label> <input v-model="segments" type="number" min="1" max="5"/></div>
     <br />
     <recruitingrow v-for="n in segments" v-bind:segments="n"></recruitingrow>
     <servicesrow></servicesrow>
-    <div style="text-align:center;"><label>Total Price (estimated): ${{ totalPrice }}</label></div>
+    <div style="text-align:center;"><label>Total Price (estimated): ${{ totalPrice.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '') }}</label></div>
   </div>
 </template>
 
@@ -33,6 +34,8 @@ export default {
       totalPrice: 299,
       techAdded: false,
       minParticipants: 1,
+      participantCount: 1,
+      countSync: {},
       nodePrices: []
     }
     },
@@ -45,23 +48,26 @@ export default {
         });
 
     }
+
     },
     nodePrices: function () {
 
     if(this.nodePrices.length > 0) {
-    var sumPrice = 0;
-      for (var i in this.nodePrices) {
-        sumPrice += this.nodePrices[i]["atts"][0]["price"];
-      }
+      var sumPrice = 0;
+      var countParticipants = 0;
+        for (var i in this.nodePrices) {
+          sumPrice += this.nodePrices[i]["atts"][0]["price"];
+          if (this.nodePrices[i]["atts"][0]["participantQty"]) {
+          countParticipants += this.nodePrices[i]["atts"][0]["participantQty"];
+          }
+        }
+         this.participantCount = countParticipants;
+         this.countSync = (this.minParticipants != this.participantCount) ? ({ color:"red" }) : ({color: "green"});
 
-      /* FIX THIS */
-       this.totalPrice = ( sumPrice == 0 ? this.totalPrice : sumPrice + 299 );
-      // this.totalPrice = ( this.techAdded ? sumPrice : sumPrice + 299);
+         this.totalPrice = ( sumPrice == 0 ? this.totalPrice : sumPrice );
+         // this.participantCount = countParticipants;
 
     }
-
-
-
     }
     },
 
@@ -86,6 +92,9 @@ export default {
     },
     adjMinParticipants: function (total) {
       this.minParticipants = total;
+    },
+    adjParticipantQty: function (qty) {
+
     }
     },
   created() {
@@ -94,6 +103,7 @@ export default {
     eventHub.$on('projectRowPrice', this.addPrice);
     eventHub.$on('servicesRowPrice', this.addPrice);
     eventHub.$on('sessionQty', this.adjSessionQty);
+    eventHub.$on('participantQty', this.addPrice)
     eventHub.$on('minParticipants', this.adjMinParticipants);
   }
 }

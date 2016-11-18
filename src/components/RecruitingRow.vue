@@ -17,7 +17,7 @@
         <td style="width:100px;"><select v-model="selected" id="skuSelect"><option v-for="(sku, index) in skus" v-if='sku["Product Family"] == "Recruiting"' :value="+index">{{ sku["Product Name"] }}</option></select></td>
         <td style="width:50px;"><input v-model="quantity" type="number" min="1"/></td>
         <td><select v-model="translator"><option value="199">Yes</option><option value="0">No</option></select></td>
-        <td style="width:50px;">${{ calcPrice }}</td>
+        <td style="width:50px;">${{ calcPrice.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '') }}</td>
       </tr>
       </tbody>
 
@@ -37,7 +37,7 @@ export default {
   data () {
     return {
       skus: skus,
-      quantity: 1,
+      quantity: 0,
       rowPrice: 0,
       selectedSku: 0,
       translator: 0,
@@ -54,7 +54,10 @@ export default {
       return +index;
     },
     priceEvent: function (price) {
-    eventHub.$emit('recruitingPrice', {id: this.segments, atts: [{ price: price, node: this.segments, time: new Date().getTime()}] });
+    eventHub.$emit('recruitingPrice', {id: this.segments, atts: [{ price: price, node: this.segments, participantQty: this.quantity, time: new Date().getTime()}] });
+    },
+    quantityEvent: function (quantity) {
+    eventHub.$emit('participantQty', {id: this.segments, atts: [{ price: null, node: this.segments, participantQty: quantity, time: new Date().getTime()}] });
     },
     selected: function () {
     return true;
@@ -77,6 +80,10 @@ export default {
           console.log(newVal);
           this.priceEvent(newVal);
 
+    },
+    quantity: function (newVal) {
+    console.log('quantity: ' + newVal)
+      this.quantityEvent(newVal);
     }
 
   },

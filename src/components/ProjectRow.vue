@@ -17,7 +17,7 @@
           <option value="6">6 Consumers (Focus Group)</option>
         </select></td>
         <td><input v-model="sessionQty" type="number" min="1" /></td>
-        <td>${{ techPrice }}</td>
+        <td>${{ techPrice.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '') }}</td>
       </tr>
       </tbody>
       </table>
