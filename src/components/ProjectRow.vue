@@ -67,7 +67,13 @@ export default {
 
   }
 
+  },
+  created() {
+  eventHub.$emit('projectRowPrice', {id: 0, atts: [{ price: 299, node: 0, time: new Date().getTime()}]});
+
   }
+
+
 }
 </script>
 

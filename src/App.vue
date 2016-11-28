@@ -31,8 +31,8 @@ export default {
   data () {
     return {
       segments: 1,
-      totalPrice: 299,
-      techAdded: false,
+      totalPrice: 0,
+      techAdded: null,
       minParticipants: 1,
       participantCount: 1,
       countSync: {},
@@ -50,9 +50,15 @@ export default {
     }
 
     },
+    minParticipants: function() {
+     this.countSync = (this.minParticipants != this.participantCount) ? ({ color:"red" }) : ({color: "green"});
+
+
+    },
     nodePrices: function () {
 
     if(this.nodePrices.length > 0) {
+
       var sumPrice = 0;
       var countParticipants = 0;
         for (var i in this.nodePrices) {
@@ -65,6 +71,7 @@ export default {
          this.countSync = (this.minParticipants != this.participantCount) ? ({ color:"red" }) : ({color: "green"});
 
          this.totalPrice = ( sumPrice == 0 ? this.totalPrice : sumPrice );
+
          // this.participantCount = countParticipants;
 
     }
@@ -99,6 +106,7 @@ export default {
     },
   created() {
     console.log('created');
+    this.totalPrice = 299;
     eventHub.$on('recruitingPrice', this.addPrice);
     eventHub.$on('projectRowPrice', this.addPrice);
     eventHub.$on('servicesRowPrice', this.addPrice);

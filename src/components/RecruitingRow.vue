@@ -77,12 +77,11 @@ export default {
     },
 
     rowPrice: function (newVal) {
-          console.log(newVal);
+          // console.log(newVal);
           this.priceEvent(newVal);
 
     },
     quantity: function (newVal) {
-    console.log('quantity: ' + newVal)
       this.quantityEvent(newVal);
     }
 
