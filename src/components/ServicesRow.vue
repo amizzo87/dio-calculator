@@ -1,6 +1,6 @@
 <template>
 
-  <div class="container-fluid" id="servicesrow">
+  <div class="col-md-12 table-responsive" id="servicesrow">
 
 <table class="table">
   <thead>
@@ -60,7 +60,7 @@ export default {
     eventHub.$emit('servicesRowPrice', {id: "servicesRow", atts: [{ price: price, node: 0, time: new Date().getTime()}]});
     },
   adjSessionQty: function (sessionQty) {
-  this.sessionQty = sessionQty;
+    this.sessionQty = sessionQty;
   }
   },
   watch: {

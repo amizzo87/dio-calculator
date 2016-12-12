@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-12" id="recruitingrow">
+  <div class="col-md-12 table-responsive" id="recruitingrow">
 
     <table class="table">
       <thead>

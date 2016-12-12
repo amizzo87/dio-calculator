@@ -1,22 +1,27 @@
 <template>
   <div id="app">
-    <projectrow></projectrow>
+    <div class="container-fluid">
+    <div class="row"><projectrow></projectrow></div>
     <br />
     <br />
-    <div style="text-align:center;"><label>Required No. of Participants:</label> {{ minParticipants }} </div>
-    <div style="text-align:center;" v-bind:style="countSync"><label>Current No. of Participants:</label> {{ participantCount }} </div>
-    <div style="text-align:center;"><label>Number of Consumer Segments:</label> <input v-model="segments" type="number" min="1" max="5"/></div>
+    <div class="row" style="text-align:center;"><alertrow v-bind:alertObj="alertObj"></alertrow></div>
     <br />
-    <recruitingrow v-for="n in segments" v-bind:segments="n"></recruitingrow>
-    <servicesrow></servicesrow>
-    <div style="text-align:center;"><label>Total Price (estimated): ${{ totalPrice.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '') }}</label></div>
-  </div>
+    <div class="row" style="text-align:center;"><label>Required No. of Participants:</label> {{ minParticipants }} </div>
+    <div class="row" style="text-align:center;" v-bind:style="countSync"><label>Current No. of Participants:</label> {{ participantCount }} </div>
+    <div class="row" style="text-align:center;"><label>Number of Consumer Segments:</label> <input v-model="segments" type="number" min="1" max="5"/></div>
+    <br />
+    <div class="row"><recruitingrow v-for="n in segments" v-bind:segments="n"></recruitingrow></div>
+    <div class="row"><servicesrow></servicesrow></div>
+    <div class="row alert alert-success" style="text-align:center; font-size:24px;"><label>Total Price (estimated): ${{ totalPrice.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '') }}</label></div>
+    </div>
+    </div>
 </template>
 
 <script>
 import recruitingrow from './components/RecruitingRow'
 import projectrow from './components/ProjectRow'
 import servicesrow from './components/ServicesRow'
+import alertrow from './components/AlertRow'
 
 import eventHub from './main.js'
 export default {
@@ -25,7 +30,8 @@ export default {
   components: {
     recruitingrow,
     projectrow,
-    servicesrow
+    servicesrow,
+    alertrow
   },
 
   data () {
@@ -36,7 +42,8 @@ export default {
       minParticipants: 1,
       participantCount: 1,
       countSync: {},
-      nodePrices: []
+      nodePrices: [],
+      alertObj: {}
     }
     },
     watch: {
@@ -69,7 +76,14 @@ export default {
         }
          this.participantCount = countParticipants;
          this.countSync = (this.minParticipants != this.participantCount) ? ({ color:"red" }) : ({color: "green"});
-
+         var successMsg = 'You have the required number of participants for your project. Great!';
+         var errorMsg = 'Your current selected number of participants does not meet the required amount.';
+         this.alertObj =
+         {
+         "class" : (this.minParticipants != this.participantCount) ? ("alert alert-danger") : ("alert alert-success"),
+         "content" : (this.minParticipants != this.participantCount ? errorMsg : successMsg),
+         "participantCount" : this.participantCount
+         }
          this.totalPrice = ( sumPrice == 0 ? this.totalPrice : sumPrice );
 
          // this.participantCount = countParticipants;

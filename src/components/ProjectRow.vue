@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid" id="recruitingrow">
+  <div class="col-md-12 table-responsive" id="recruitingrow">
     <table class="table">
       <thead>
       <th>Participants per Session</th>
