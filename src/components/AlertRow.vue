@@ -12,7 +12,7 @@
     props: ['alertObj'],
     data () {
       return {
-      test : 'test'
+      test : 'test is working!'
       }
     }
   }

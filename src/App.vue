@@ -47,7 +47,10 @@ export default {
       participantCount: 1,
       countSync: {},
       nodePrices: [],
-      alertObj: {}
+      alertObj: {},
+      successMsg: 'You have the required number of participants for your project. Great!',
+      errorMsg: 'The current number of participants does not meet the required amount.',
+      defaultMsg: 'Proceed to configure this report to calculate your estimated project price.'
     }
     },
     watch: {
@@ -63,6 +66,15 @@ export default {
     },
     minParticipants: function() {
      this.countSync = (this.minParticipants != this.participantCount) ? ({ color:"red" }) : ({color: "green"});
+
+     this.alertObj =
+         {
+         "class" : (this.minParticipants != this.participantCount) ? ("alert alert-danger") : ("alert alert-success"),
+         "content" : (this.minParticipants != this.participantCount ? this.errorMsg : this.successMsg),
+         "participantCount" : this.participantCount,
+         "defaultClass" : "alert alert-info",
+         "defaultContent" : this.defaultMsg
+         }
 
 
     },
@@ -81,17 +93,13 @@ export default {
          this.participantCount = countParticipants;
          this.countSync = (this.minParticipants != this.participantCount) ? ({ color:"red" }) : ({color: "green"});
 
-         var successMsg = 'You have the required number of participants for your project. Great!';
-         var errorMsg = 'The current selected number of participants does not meet the required amount.';
-         var defaultMsg = 'Proceed to configure this report to calculate your estimated project price.';
-
          this.alertObj =
          {
          "class" : (this.minParticipants != this.participantCount) ? ("alert alert-danger") : ("alert alert-success"),
-         "content" : (this.minParticipants != this.participantCount ? errorMsg : successMsg),
+         "content" : (this.minParticipants != this.participantCount ? this.errorMsg : this.successMsg),
          "participantCount" : this.participantCount,
          "defaultClass" : "alert alert-info",
-         "defaultContent" : defaultMsg
+         "defaultContent" : this.defaultMsg
          }
          this.totalPrice = ( sumPrice == 0 ? this.totalPrice : sumPrice );
 
