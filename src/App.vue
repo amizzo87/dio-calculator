@@ -5,12 +5,17 @@
     <div class="row alert alert-success" style="text-align:center; font-size:24px;"><label>Total Price (estimated): ${{ totalPrice.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '') }}</label></div>
       <div class="row"><div class="col-md-4"><label>Required No. of Participants:</label> {{ minParticipants }} </div>
         <div class="col-md-4" style="text-align:center;" v-bind:style="countSync"><label>Current No. of Participants:</label> {{ participantCount }} </div>
-        <div class="col-md-4" style="text-align:center;"><label>Number of Consumer Segments:</label> <input style="width:50px;" v-model="segments" type="number" min="1" max="5"/></div>
+        <div class="col-md-4" style="text-align:center;"><label>Number of Consumer Segments: {{ segments }}</label></div>
       </div>
       <div class="row" style="text-align:center;"><alertrow v-bind:alertObj="alertObj"></alertrow></div>
       <div class="row"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Project Type</h3></div><div class="panel-body"><projectrow></projectrow></div></div></div>
-    <div class="row"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Consumer Recruiting Quotas</h3></div><div class="panel-body"><recruitingrow v-for="n in segments" v-bind:segments="n"></recruitingrow></div></div></div>
+    <div class="row"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Consumer Recruiting Quotas</h3></div><div class="panel-body"><div style="text-align:center;"><label>Number of Consumer Segments:</label> <input style="width:50px;" v-model="segments" type="number" min="1" max="5"/></div><recruitingrow v-for="n in segments" v-bind:segments="n"></recruitingrow></div></div></div>
     <div class="row"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Professional Services</h3></div><div class="panel-body"><servicesrow></servicesrow></div></div></div>
+      <div class="row alert alert-success" style="text-align:center; font-size:24px;"><label>Total Price (estimated): ${{ totalPrice.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '') }}</label></div>
+      <div class="row"><div class="col-md-4"><label>Required No. of Participants:</label> {{ minParticipants }} </div>
+        <div class="col-md-4" style="text-align:center;" v-bind:style="countSync"><label>Current No. of Participants:</label> {{ participantCount }} </div>
+        <div class="col-md-4" style="text-align:center;"><label>Number of Consumer Segments: {{ segments }}</label></div>
+      </div>
     </div>
     </div>
     </div>
@@ -75,9 +80,11 @@ export default {
         }
          this.participantCount = countParticipants;
          this.countSync = (this.minParticipants != this.participantCount) ? ({ color:"red" }) : ({color: "green"});
+
          var successMsg = 'You have the required number of participants for your project. Great!';
          var errorMsg = 'The current selected number of participants does not meet the required amount.';
-         var defaultMsg = 'Proceed to configure this report to calculate your estimate project price.';
+         var defaultMsg = 'Proceed to configure this report to calculate your estimated project price.';
+
          this.alertObj =
          {
          "class" : (this.minParticipants != this.participantCount) ? ("alert alert-danger") : ("alert alert-success"),
