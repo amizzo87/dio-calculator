@@ -3,41 +3,43 @@
 <head>
   <meta charset="utf-8">
   <title>Discuss.io Pricing Calculator</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+  <link rel="stylesheet" href="https://www.discuss.io/wp-includes/css/bootstrap3-noconflict.min.css">
   <!-- <script src="https://ajax.googleapis.com/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+  <script>
+
+    var head = document.getElementsByTagName('head')[0];
+    var js1 = document.createElement("script");
+    var js2 = document.createElement("script");
+    js1.type = "text/javascript";
+    js2.type = "text/javascript";
+
+    if (typeof $ === 'undefined' && typeof jQuery === 'undefined')
+    {
+      js1.src = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js";
+      // js2.src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js";
+      head.appendChild(js1);
+      // head.appendChild(js2);
+    }
+    else if (typeof $ === 'undefined' && typeof jQuery !== 'undefined')
+    {
+      js1.text = "$ = jQuery;";
+      // js2.src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js";
+      head.appendChild(js1);
+      // head.appendChild(js2);
+    } else if (typeof $ !== 'undefined') {
+      // js.text = "$ = jQuery;";
+      // js1.src = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js";
+      // js2.src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js";
+      // head.appendChild(js2);
+    }
+
+  </script>
 </head>
   <body>
     <div id="app"></div>
     <!-- built files will be auto injected -->
-    <script>
 
-      var head = document.getElementsByTagName('head')[0];
-      var js1 = document.createElement("script");
-      var js2 = document.createElement("script");
-      js1.type = "text/javascript";
-      js2.type = "text/javascript";
-
-      if (typeof $ === 'undefined' && typeof jQuery === 'undefined')
-      {
-        js1.src = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js";
-        // js2.src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js";
-        head.appendChild(js1);
-        // head.appendChild(js2);
-      }
-      else if (typeof $ === 'undefined' && typeof jQuery !== 'undefined')
-      {
-        js1.text = "$ = jQuery;";
-        // js2.src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js";
-        head.appendChild(js1);
-        // head.appendChild(js2);
-      } else if (typeof $ !== 'undefined') {
-        // js.text = "$ = jQuery;";
-        // js1.src = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js";
-        // js2.src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js";
-        // head.appendChild(js2);
-      }
-
-    </script>
   </body>
 </html>

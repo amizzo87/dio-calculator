@@ -1,6 +1,6 @@
 <template name="alertrow">
-    <div :class="alertObj.class" role="alert" v-show="alertObj.participantCount != 0">
-      {{ alertObj.content }}
+    <div :class="(alertObj.participantCount == 0 ? alertObj.defaultClass : alertObj.class)" role="alert">
+      {{ alertObj.participantCount == 0 ? alertObj.defaultContent : alertObj.content }}
     </div>
 </template>
 
