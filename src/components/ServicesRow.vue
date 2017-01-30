@@ -1,8 +1,8 @@
 <template>
 
-  <div class="col-md-12 table-responsive" id="servicesrow">
+  <div class="col" id="servicesrow">
 
-<table class="table">
+<table class="table table-sm">
   <thead>
 <tr>
   <th>Add-on Services</th>

@@ -1,6 +1,6 @@
 <template>
-  <div class="col-md-12 table-responsive" id="recruitingrow">
-    <table class="table">
+  <div class="col" id="recruitingrow">
+    <table class="table table-sm">
       <thead>
       <th>Participants per Session</th>
       <th>Quantity of Sessions</th>

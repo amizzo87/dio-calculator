@@ -1,21 +1,57 @@
 <template>
   <div id="app">
-    <div id="bootstrap3">
+    <!--<div id="bootstrap3">
     <div class="container-fluid">
-    <div class="row alert alert-success" style="text-align:center; font-size:24px;"><label>Total Price (estimated): ${{ totalPrice.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '') }}</label></div>
-      <div class="row"><div class="col-md-4"><label>Required No. of Participants:</label> {{ minParticipants }} </div>
-        <div class="col-md-4" style="text-align:center;" v-bind:style="countSync"><label>Current No. of Participants:</label> {{ participantCount }} </div>
-        <div class="col-md-4" style="text-align:center;"><label>Number of Consumer Segments: {{ segments }}</label></div>
-      </div>
-      <div class="row" style="text-align:center;"><alertrow v-bind:alertObj="alertObj"></alertrow></div>
+      <div class="row">
+      <div class="col-md-9">
       <div class="row"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Project Type</h3></div><div class="panel-body"><projectrow></projectrow></div></div></div>
     <div class="row"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Consumer Recruiting Quotas</h3></div><div class="panel-body"><div style="text-align:center;"><label>Number of Consumer Segments:</label> <input style="width:50px;" v-model="segments" type="number" min="1" max="5"/></div><recruitingrow v-for="n in segments" v-bind:segments="n"></recruitingrow></div></div></div>
     <div class="row"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Professional Services</h3></div><div class="panel-body"><servicesrow></servicesrow></div></div></div>
-      <div class="row alert alert-success" style="text-align:center; font-size:24px;"><label>Total Price (estimated): ${{ totalPrice.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '') }}</label></div>
-      <div class="row"><div class="col-md-4"><label>Required No. of Participants:</label> {{ minParticipants }} </div>
-        <div class="col-md-4" style="text-align:center;" v-bind:style="countSync"><label>Current No. of Participants:</label> {{ participantCount }} </div>
-        <div class="col-md-4" style="text-align:center;"><label>Number of Consumer Segments: {{ segments }}</label></div>
+
       </div>
+        <div class="col-md-3">
+          <div class="row alert alert-success" style="text-align:center; font-size:24px;"><label>Total Price (estimated): ${{ totalPrice.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '') }}</label></div>
+          <div class="row">
+            <div class="col-md-4"><label>Required No. of Participants:</label> {{ minParticipants }} </div>
+            <div class="col-md-4" style="text-align:center;" v-bind:style="countSync"><label>Current No. of Participants:</label> {{ participantCount }} </div>
+            <div class="col-md-4" style="text-align:center;"><label>Number of Consumer Segments: {{ segments }}</label></div>
+          </div>
+          <div class="row" style="text-align:center;"><alertrow v-bind:alertObj="alertObj"></alertrow></div>
+          </div>
+      </div>
+    </div>
+    </div>-->
+    <div id="bootstrap4">
+    <div class="container-fluid">
+      <div class="row">
+      <div class="col-lg-8">
+       <div class="col-lg-12">
+      <div class="row"><div class="col-lg-12"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Project Type</h3></div><div class="panel-body"><projectrow></projectrow></div></div></div></div>
+    <div class="row"><div class="col-lg-12"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Consumer Recruiting Quotas</h3></div><div class="panel-body"><div style="text-align:center;"><label>Number of Consumer Segments:</label> <input style="width:50px;" v-model="segments" type="number" min="1" max="5"/></div><recruitingrow v-for="n in segments" v-bind:segments="n"></recruitingrow></div></div></div></div>
+    <div class="row"><div class="col-lg-12"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Professional Services</h3></div><div class="panel-body"><servicesrow></servicesrow></div></div></div></div>
+      </div>
+      </div>
+        <div class="col-lg-4 hidden-lg-down">
+          <div class="row alert alert-success" style="text-align:center; font-size:24px;"><label>Total Price (estimated): ${{ totalPrice.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '') }}</label></div>
+          <div class="row">
+            <div class="col-lg-12"><label>Required No. of Participants:</label> {{ minParticipants }} </div>
+            <div class="col-lg-12" style="text-align:center;" v-bind:style="countSync"><label>Current No. of Participants:</label> {{ participantCount }} </div>
+            <div class="col-lg-12" style="text-align:center;"><label>Number of Consumer Segments: {{ segments }}</label></div>
+          </div>
+          <div class="row" style="text-align:center;"><alertrow v-bind:alertObj="alertObj"></alertrow></div>
+          </div>
+      </div>
+      <div class="row hidden-xl-up">
+        <div class="col-sm-12">
+          <div class="row alert alert-success" style="text-align:center; font-size:24px;"><label>Total Price (estimated): ${{ totalPrice.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '') }}</label></div>
+          <div class="row">
+            <div class="col"><label>Required No. of Participants:</label> {{ minParticipants }} </div>
+            <div class="col" style="text-align:center;" v-bind:style="countSync"><label>Current No. of Participants:</label> {{ participantCount }} </div>
+            <div class="col" style="text-align:center;"><label>Number of Consumer Segments: {{ segments }}</label></div>
+          </div>
+          <div class="row" style="text-align:center;"><div class="col"><alertrow v-bind:alertObj="alertObj"></alertrow></div></div>
+        </div>
+        </div>
     </div>
     </div>
     </div>
@@ -157,9 +193,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   /* text-align: center; */
   color: #2c3e50;
-  margin: 60px;
-}
-#app .row {
-/* margin-bottom: 0!important; */
+
 }
 </style>

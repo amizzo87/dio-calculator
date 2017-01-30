@@ -1,7 +1,7 @@
 <template>
-  <div class="col-md-12 table-responsive" id="recruitingrow">
+  <div class="col" id="recruitingrow">
 
-    <table class="table" :table-id="segments">
+    <table class="table table-sm" :table-id="segments">
       <!-- <thead v-show="segments == 1">
       <tr>
         <th>Consumer Segments</th>
