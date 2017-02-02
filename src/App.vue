@@ -23,7 +23,7 @@
     </div>-->
     <div id="bootstrap4">
     <div class="container-fluid">
-      <div class="row">
+      <div class="row" style="margin-bottom:5em;">
       <div class="col-lg-8">
        <div class="col-lg-12">
       <div class="row"><div class="col-lg-12"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Project Type</h3></div><div class="panel-body"><projectrow></projectrow></div></div></div></div>
@@ -31,7 +31,7 @@
     <div class="row"><div class="col-lg-12"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Professional Services</h3></div><div class="panel-body"><servicesrow></servicesrow></div></div></div></div>
       </div>
       </div>
-        <div class="col-lg-4 hidden-lg-down">
+        <div class="col-lg-4 hidden-md-down">
           <div class="row alert alert-success" style="text-align:center; font-size:24px;"><label>Total Price (estimated): ${{ totalPrice.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '') }}</label></div>
           <div class="row">
             <div class="col-lg-12"><label>Required No. of Participants:</label> {{ minParticipants }} </div>
@@ -41,7 +41,7 @@
           <div class="row" style="text-align:center;"><alertrow v-bind:alertObj="alertObj"></alertrow></div>
           </div>
       </div>
-      <div class="row hidden-xl-up">
+      <div class="row hidden-lg-up">
         <div class="col-sm-12">
           <div class="row alert alert-success" style="text-align:center; font-size:24px;"><label>Total Price (estimated): ${{ totalPrice.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '') }}</label></div>
           <div class="row">
@@ -123,25 +123,25 @@ export default {
         for (var i in this.nodePrices) {
           sumPrice += this.nodePrices[i]["atts"][0]["price"];
           if (this.nodePrices[i]["atts"][0]["participantQty"]) {
-          countParticipants += this.nodePrices[i]["atts"][0]["participantQty"];
+            countParticipants += this.nodePrices[i]["atts"][0]["participantQty"];
           }
         }
-         this.participantCount = countParticipants;
-         this.countSync = (this.minParticipants != this.participantCount) ? ({ color:"red" }) : ({color: "green"});
+      this.participantCount = countParticipants;
+      this.countSync = (this.minParticipants != this.participantCount) ? ({ color:"red" }) : ({color: "green"});
 
-         this.alertObj =
-         {
-         "class" : (this.minParticipants != this.participantCount) ? ("alert alert-danger") : ("alert alert-success"),
-         "content" : (this.minParticipants != this.participantCount ? this.errorMsg : this.successMsg),
-         "participantCount" : this.participantCount,
-         "defaultClass" : "alert alert-info",
-         "defaultContent" : this.defaultMsg
-         }
-         this.totalPrice = ( sumPrice == 0 ? this.totalPrice : sumPrice );
+      this.alertObj =
+        {
+        "class" : (this.minParticipants != this.participantCount) ? ("alert alert-danger") : ("alert alert-success"),
+        "content" : (this.minParticipants != this.participantCount ? this.errorMsg : this.successMsg),
+        "participantCount" : this.participantCount,
+        "defaultClass" : "alert alert-info",
+        "defaultContent" : this.defaultMsg
+        }
+      this.totalPrice = ( sumPrice == 0 ? this.totalPrice : sumPrice );
 
          // this.participantCount = countParticipants;
 
-    }
+      }
     }
     },
 
@@ -151,11 +151,11 @@ export default {
 
 
       if(this.nodePrices.length > 0) {
-      for (var i in this.nodePrices) {
-        this.nodePrices = this.nodePrices.filter(function(el) {
-          return el.id !== newPrice.id;
-        });
-      }
+        for (var i in this.nodePrices) {
+          this.nodePrices = this.nodePrices.filter(function(el) {
+            return el.id !== newPrice.id;
+          });
+        }
       }
       this.nodePrices.push(newPrice);
 
@@ -188,7 +188,7 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  /* font-family: 'Avenir', Helvetica, Arial, sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* text-align: center; */

@@ -51,6 +51,8 @@ export default {
         var sessionPrice = this.sessionQty * 299;
         this.techPrice = sessionPrice;
         this.priceEvent(sessionPrice);
+        /* Put logic here to add session type-specific pricing? */
+
         this.participantEvent(this.sessionQty * this.participants);
 
   },

@@ -17,7 +17,7 @@
         <td style="/*width:100px;*/"><select v-model="selected" id="skuSelect" class="geography"><option name="disabled" disabled>Select geography</option><option v-for="(sku, index) in skus" v-if='sku["Product Family"] == "Recruiting"' :value="+index">{{ sku["Product Name"] }}</option></select></td>
         <td style="/*width:100px;*/"><input v-model="quantity" type="number" min="1" placeholder="No. of Participants"/></td>
         <td><select id="translation" v-model="translator"><option name="translation" disabled>Translation</option><option value="199">Translator - Yes</option><option value="0">Translator - No</option></select></td>
-        <td style="/*width:50px;*/">${{ calcPrice.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '') }}</td>
+        <td style="min-width:50px;">${{ calcPrice.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '') }}</td>
       </tr>
       </tbody>
 

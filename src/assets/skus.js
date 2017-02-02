@@ -1,12 +1,12 @@
 var skus = [
   {
     'Product Name': 'Individual Depth Interview (IDI)',
-    'List Price': 95,
+    'List Price': 250,
     'Product Family': 'Software'
   },
   {
     'Product Name': 'Focus Group',
-    'List Price': 299,
+    'List Price': 500,
     'Product Family': 'Software'
   },
   {
@@ -16,77 +16,82 @@ var skus = [
   },
   {
     'Product Name': 'Recruiting - Argentina',
-    'List Price': 250,
+    'List Price': 200,
     'Product Family': 'Recruiting'
   },
   {
     'Product Name': 'Recruiting - Australia',
-    'List Price': 299,
-    'Product Family': 'Recruiting'
-  },
-  {
-    'Product Name': 'Recruiting - Brazil',
-    'List Price': 249,
-    'Product Family': 'Recruiting'
-  },
-  {
-    'Product Name': 'Recruiting - Canada',
-    'List Price': 215,
-    'Product Family': 'Recruiting'
-  },
-  {
-    'Product Name': 'Recruiting - China',
-    'List Price': 299,
-    'Product Family': 'Recruiting'
-  },
-  {
-    'Product Name': 'Recruiting - Germany',
-    'List Price': 225,
-    'Product Family': 'Recruiting'
-  },
-  {
-    'Product Name': 'Recruiting - India',
-    'List Price': 199,
-    'Product Family': 'Recruiting'
-  },
-  {
-    'Product Name': 'Recruiting - Indonesia',
-    'List Price': 249,
-    'Product Family': 'Recruiting'
-  },
-  {
-    'Product Name': 'Recruiting - Italy',
-    'List Price': 299,
-    'Product Family': 'Recruiting'
-  },
-  {
-    'Product Name': 'Recruiting - Japan',
-    'List Price': 550,
-    'Product Family': 'Recruiting'
-  },
-  {
-    'Product Name': 'Recruiting - Netherlands',
-    'List Price': 299,
-    'Product Family': 'Recruiting'
-  },
-  {
-    'Product Name': 'Recruiting - Nigeria',
     'List Price': 250,
     'Product Family': 'Recruiting'
   },
   {
+    'Product Name': 'Recruiting - Brazil',
+    'List Price': 200,
+    'Product Family': 'Recruiting'
+  },
+  {
+    'Product Name': 'Recruiting - Canada',
+    'List Price': 150,
+    'Product Family': 'Recruiting'
+  },
+  {
+    'Product Name': 'Recruiting - China',
+    'List Price': 250,
+    'Product Family': 'Recruiting'
+  },
+  {
+    'Product Name': 'Recruiting - Germany',
+    'List Price': 250,
+    'Product Family': 'Recruiting'
+  },
+  {
+    'Product Name': 'Recruiting - India',
+    'List Price': 150,
+    'Product Family': 'Recruiting'
+  },
+  {
+    'Product Name': 'Recruiting - Indonesia',
+    'List Price': 200,
+    'Product Family': 'Recruiting'
+  },
+  {
+    'Product Name': 'Recruiting - Italy',
+    'List Price': 200,
+    'Product Family': 'Recruiting'
+  },
+  {
+    'Product Name': 'Recruiting - Japan',
+    'List Price': 500,
+    'Product Family': 'Recruiting'
+  },
+  {
+    'Product Name': 'Recruiting - Netherlands',
+    'List Price': 200,
+    'Product Family': 'Recruiting'
+  },
+  {
+    'Product Name': 'Recruiting - Nigeria',
+    'List Price': 200,
+    'Product Family': 'Recruiting'
+  },
+  {
     'Product Name': 'Recruiting - Philipines',
-    'List Price': 199,
+    'List Price': 150,
     'Product Family': 'Recruiting'
   },
   {
     'Product Name': 'Recruiting - South Africa',
-    'List Price': 199,
+    'List Price': 150,
     'Product Family': 'Recruiting'
   },
   {
     'Product Name': 'Recruiting - Thailand',
-    'List Price': 199,
+    'List Price': 200,
+    'Product Family': 'Recruiting'
+  },
+  {
+    'Product Name': 'Recruiting - Kenya',
+    'List Price': 200,
     'Product Family': 'Recruiting'
   },
   {
@@ -95,28 +100,28 @@ var skus = [
     'Product Family': 'Recruiting'
   },
   {
-    'Product Name': 'Recruiting - UEA',
-    'List Price': 199,
+    'Product Name': 'Recruiting - UAE',
+    'List Price': 200,
     'Product Family': 'Recruiting'
   },
   {
     'Product Name': 'Recruiting - UK',
-    'List Price': 199,
+    'List Price': 150,
     'Product Family': 'Recruiting'
   },
   {
     'Product Name': 'Recruiting - USA',
-    'List Price': 199,
+    'List Price': 150,
     'Product Family': 'Recruiting'
   },
   {
     'Product Name': 'Recruiting - Vietnam',
-    'List Price': 250,
+    'List Price': 200,
     'Product Family': 'Recruiting'
   },
   {
     'Product Name': 'Recruiting - France',
-    'List Price': 199,
+    'List Price': 200,
     'Product Family': 'Recruiting'
   },
   {
@@ -126,7 +131,12 @@ var skus = [
   },
   {
     'Product Name': 'Recruiting - Other Geography',
-    'List Price': 299,
+    'List Price': 250,
+    'Product Family': 'Recruiting'
+  },
+  {
+    'Product Name': 'Recruiting - Poland',
+    'List Price': 250,
     'Product Family': 'Recruiting'
   },
   {
@@ -136,7 +146,7 @@ var skus = [
   },
   {
     'Product Name': 'Survey Programming',
-    'List Price': 999,
+    'List Price': 1000,
     'Product Family': 'Services'
   },
   {
@@ -161,7 +171,7 @@ var skus = [
   },
   {
     'Product Name': 'Moderator Briefing',
-    'List Price': 500,
+    'List Price': 300,
     'Product Family': 'Services'
   },
   {
@@ -176,7 +186,7 @@ var skus = [
   },
   {
     'Product Name': 'Project Management',
-    'List Price': 99,
+    'List Price': 250,
     'Product Family': 'Services'
   },
   {
