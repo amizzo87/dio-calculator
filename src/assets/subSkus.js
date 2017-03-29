@@ -1,18 +1,13 @@
 var skus = [
   {
     'Product Name': 'Individual Depth Interview (IDI)',
-    'List Price': 250,
-    'Product Family': 'Software'
+    'List Price': 0,
+    'Product Family': 'Project Setup'
   },
   {
     'Product Name': 'Focus Group',
-    'List Price': 500,
-    'Product Family': 'Software'
-  },
-  {
-    'Product Name': 'Recruiting - Backup Consumer',
-    'List Price': 100,
-    'Product Family': 'Recruiting'
+    'List Price': 0,
+    'Product Family': 'Project Setup'
   },
   {
     'Product Name': 'Recruiting - Argentina',
@@ -200,8 +195,18 @@ var skus = [
     'Product Family': 'Services'
   },
   {
-    'Product Name': 'Live Translation',
+    'Product Name': 'Translator - Yes',
     'List Price': 199,
+    'Product Family': 'Translation'
+  },
+  {
+    'Product Name': 'Translator - No',
+    'List Price': 0,
+    'Product Family': 'Translation'
+  },
+  {
+    'Product Name': 'Tech and Hosting',
+    'List Price': 249,
     'Product Family': 'Services'
   }
 ]

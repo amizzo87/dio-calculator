@@ -14,9 +14,9 @@
       <tbody>
       <tr>
         <td style="/*width:400px;*/">Segment #{{segments}}</td>
-        <td style="/*width:100px;*/"><select v-model="selected" id="skuSelect" class="geography"><option name="disabled" disabled>Select geography</option><option v-for="(sku, index) in skus" v-if='sku["Product Family"] == "Recruiting"' :value="+index">{{ sku["Product Name"] }}</option></select></td>
-        <td style="/*width:100px;*/"><input v-model="quantity" type="number" min="1" placeholder="No. of Participants"/></td>
-        <td><select id="translation" v-model="translator"><option name="translation" disabled>Translation</option><option value="199">Translator - Yes</option><option value="0">Translator - No</option></select></td>
+        <td style="/*width:100px;*/"><select v-model="selected" id="skuSelect" class="geography"><option name="disabled" disabled>Select geography</option><option v-for="(sku, index) in skus" v-if='sku["Product Family"] == "Recruiting"' :value="+index">{{ sku["Product Name"].replace("Recruiting - ", '') }}</option></select></td>
+        <td style="/*width:100px;*/"><input v-model="quantity" type="number" min="1" placeholder="# of Participants"/></td>
+        <td><select id="translation" v-model="translator"><option name="translation" disabled>Translation</option><option v-for="(sku, index) in skus" v-if='sku["Product Family"] == "Translation"' :value='sku["List Price"]'>{{ sku["Product Name"] }}</option></select></td>
         <td style="min-width:50px;">${{ calcPrice.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '') }}</td>
       </tr>
       </tbody>
@@ -24,18 +24,19 @@
       </table>
   </div>
   <!-- End Consumer Recruiting Quotas -->
-
 </template>
+
 <script>
-import skus from '../assets/skus.js'
+var _ = require('lodash');
+import paygSkus from '../assets/paygSkus.js'
+import subSkus from '../assets/subSkus.js'
+
 import eventHub from '../main.js'
-const holdSkus = skus;
 export default {
   name: 'recruitingrow',
-  props: ['segments'],
+  props: ['segments', 'priceSetting'],
   data () {
     return {
-      skus: skus,
       quantity: null,
       rowPrice: 0,
       selectedSku: 0,
@@ -53,6 +54,7 @@ export default {
       return +index;
     },
     priceEvent: function (price) {
+
     eventHub.$emit('recruitingPrice', {id: this.segments, atts: [{ price: price, node: this.segments, participantQty: this.quantity, time: new Date().getTime()}] });
     },
     quantityEvent: function (quantity) {
@@ -77,6 +79,7 @@ export default {
 
     rowPrice: function (newVal) {
           // console.log(newVal);
+
           this.priceEvent(newVal);
 
     },
@@ -92,12 +95,16 @@ export default {
     },
     calcPrice: function() {
       if (this.selectedSku) {
-      var price = (skus[this.selectedSku]["List Price"] + +this.translator) * this.quantity;
+      var price = (this.skus[this.selectedSku]["List Price"] * this.quantity) + +this.translator;
       this.rowPrice = price;
       return price;
       } else {
        return 0;
       }
+
+    },
+    skus: function () {
+      return _.sortBy((this.priceSetting == 0 ? paygSkus : subSkus), ['Product Name']);
 
     }
 
@@ -117,6 +124,7 @@ export default {
   mounted() {
 
   $("table[table-id='"+this.segments+"'] #skuSelect option[name='disabled']").attr("selected", "selected");
+    $("table[table-id='"+this.segments+"'] #translation option[name='translation']").attr("selected", "selected");
   // $("#translation option[name='translation']").attr("selected", "selected");
   }
 }

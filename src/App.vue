@@ -23,18 +23,28 @@
     </div>-->
     <div id="bootstrap4">
     <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+      <div class="btn-group" role="group">
+        <button type="button" v-on:click="priceSetting = 0" id="paygButton" v-bind:class="btnPaygObj">Pay-as-you-go</button>
+        <button type="button" v-on:click="priceSetting = 1" id="subButton" v-bind:class="btnSubObj">Subscription</button>
+      </div>
+          </div>
+        <div class="col-lg-4"></div>
+        </div>
       <div class="row" style="margin-bottom:5em;">
       <div class="col-lg-8">
        <div class="col-lg-12">
-      <div class="row"><div class="col-lg-12"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Project Type</h3></div><div class="panel-body"><projectrow></projectrow></div></div></div></div>
-    <div class="row"><div class="col-lg-12"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Consumer Recruiting Quotas</h3></div><div class="panel-body"><div style="text-align:center;"><label>Number of Consumer Segments:</label> <input style="width:50px;" v-model="segments" type="number" min="1" max="5"/></div><recruitingrow v-for="n in segments" v-bind:segments="n"></recruitingrow></div></div></div></div>
-    <div class="row"><div class="col-lg-12"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Professional Services</h3></div><div class="panel-body"><servicesrow></servicesrow></div></div></div></div>
+      <div class="row"><div class="col-lg-12"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Project Type</h3></div><div class="panel-body"><projectrow v-bind:priceSetting="priceSetting"></projectrow></div></div></div></div>
+         <div class="row"><div class="col-lg-12"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Consumer Recruiting Quotas</h3><h6>(Price includes incentives)</h6></div><div class="panel-body"><div style="text-align:center;"><label>Number of Consumer Segments:</label> <input style="width:50px;" v-model="segments" type="number" min="1" max="5"/></div><recruitingrow v-for="n in segments" v-bind:segments="n" v-bind:priceSetting="priceSetting"></recruitingrow></div></div></div></div>
+    <!--<div class="row"><div class="col-lg-12"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Professional Services</h3></div><div class="panel-body"><servicesrow></servicesrow></div></div></div></div>-->
       </div>
       </div>
         <div class="col-lg-4 hidden-md-down">
-          <div class="row alert alert-success" style="text-align:center; font-size:24px;"><label>Total Price (estimated): ${{ totalPrice.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '') }}</label></div>
+          <div class="row alert alert-success" style="text-align:center; font-size:24px; margin-top:1em;"><label>Total Price (estimated): ${{ totalPrice.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '') }}</label></div>
           <div class="row">
-            <div class="col-lg-12"><label>Required No. of Participants:</label> {{ minParticipants }} </div>
+            <div class="col-lg-12" style="text-align:center;"><label>Required No. of Participants:</label> {{ minParticipants }} </div>
             <div class="col-lg-12" style="text-align:center;" v-bind:style="countSync"><label>Current No. of Participants:</label> {{ participantCount }} </div>
             <div class="col-lg-12" style="text-align:center;"><label>Number of Consumer Segments: {{ segments }}</label></div>
           </div>
@@ -84,11 +94,13 @@ export default {
       countSync: {},
       nodePrices: [],
       alertObj: {},
+      priceSetting: 0,
       successMsg: 'You have the required number of participants for your project. Great!',
       errorMsg: 'The current number of participants does not meet the required amount.',
       defaultMsg: 'Proceed to configure this report to calculate your estimated project price.'
     }
     },
+
     watch: {
     segments: function (newVal, oldVal) {
     if (oldVal > newVal) {
@@ -171,6 +183,22 @@ export default {
 
     }
     },
+  computed: {
+      btnPaygObj: function() {
+          return {
+            'btn': true,
+            'btn-secondary': (this.priceSetting !== 0),
+            'btn-active': (this.priceSetting === 0)
+          }
+      },
+    btnSubObj: function() {
+      return {
+        'btn': true,
+        'btn-secondary': (this.priceSetting === 0),
+        'btn-active': (this.priceSetting !== 0)
+      }
+    }
+  },
   created() {
     console.log('created');
     this.totalPrice = 299;
