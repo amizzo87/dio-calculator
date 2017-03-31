@@ -66,6 +66,7 @@ export default {
         var rowTotalWithFee = (sessionTypeFee + (this.techPrice * this.sessionQty));
         this.priceEvent(rowTotalWithFee);
         this.participantEvent(this.sessionQty * this.participants);
+        eventHub.$emit('currentSessionQty', this.sessionQty);
 
   },
   participants: function (newVal, oldVal) {

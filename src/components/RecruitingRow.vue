@@ -13,7 +13,7 @@
       </thead> -->
       <tbody>
       <tr>
-        <td style="/*width:400px;*/">Segment #{{segments}}</td>
+        <td style="/*width:400px;*/">Group #{{segments}}</td>
         <td style="/*width:100px;*/"><select v-model="selected" id="skuSelect" class="geography"><option name="disabled" disabled>Select geography</option><option v-for="(sku, index) in skus" v-if='sku["Product Family"] == "Recruiting"' :value="+index">{{ sku["Product Name"].replace("Recruiting - ", '') }}</option></select></td>
         <td style="/*width:100px;*/"><input v-model="quantity" type="number" min="1" placeholder="# of Participants"/></td>
         <td><select id="translation" v-model="translator"><option name="translation" disabled>Translation</option><option v-for="(sku, index) in skus" v-if='sku["Product Family"] == "Translation"' :value='sku["List Price"]'>{{ sku["Product Name"] }}</option></select></td>
@@ -34,7 +34,7 @@ import subSkus from '../assets/subSkus.js'
 import eventHub from '../main.js'
 export default {
   name: 'recruitingrow',
-  props: ['segments', 'priceSetting'],
+  props: ['segments', 'priceSetting', 'currentSessionQty'],
   data () {
     return {
       quantity: null,
@@ -95,7 +95,7 @@ export default {
     },
     calcPrice: function() {
       if (this.selectedSku) {
-      var price = (this.skus[this.selectedSku]["List Price"] * this.quantity) + +this.translator;
+      var price = (this.skus[this.selectedSku]["List Price"] * this.quantity) + (+this.translator * +this.currentSessionQty);
       this.rowPrice = price;
       return price;
       } else {

@@ -37,7 +37,7 @@
       <div class="col-lg-8">
        <div class="col-lg-12">
       <div class="row"><div class="col-lg-12"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Project Type</h3></div><div class="panel-body"><projectrow v-bind:priceSetting="priceSetting"></projectrow></div></div></div></div>
-         <div class="row"><div class="col-lg-12"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Consumer Recruiting Quotas</h3><h6>(Price includes incentives)</h6></div><div class="panel-body"><div style="text-align:center;"><label>Number of Consumer Segments:</label> <input style="width:50px;" v-model="segments" type="number" min="1" max="5"/></div><recruitingrow v-for="n in segments" v-bind:segments="n" v-bind:priceSetting="priceSetting"></recruitingrow></div></div></div></div>
+         <div class="row"><div class="col-lg-12"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Consumer Recruiting Quotas</h3><h6>(Price includes incentives)</h6></div><div class="panel-body"><div style="text-align:center;"><label>Number of Consumer Segments:</label> <input style="width:50px;" v-model="segments" type="number" min="1" max="5"/></div><recruitingrow v-for="n in segments" v-bind:segments="n" v-bind:priceSetting="priceSetting" v-bind:currentSessionQty="currentSessionQty"></recruitingrow></div></div></div></div>
     <!--<div class="row"><div class="col-lg-12"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Professional Services</h3></div><div class="panel-body"><servicesrow></servicesrow></div></div></div></div>-->
       </div>
       </div>
@@ -95,6 +95,7 @@ export default {
       nodePrices: [],
       alertObj: {},
       priceSetting: 0,
+      currentSessionQty: 1,
       successMsg: 'You have the required number of participants for your project. Great!',
       errorMsg: 'The current number of participants does not meet the required amount.',
       defaultMsg: 'Proceed to configure this report to calculate your estimated project price.'
@@ -175,6 +176,7 @@ export default {
     },
     adjSessionQty: function (sessionQty) {
       // this.totalPrice = this.totalPrice + (sessionQty * 299);
+      this.currentSessionQty = sessionQty;
     },
     adjMinParticipants: function (total) {
       this.minParticipants = total;
@@ -208,6 +210,7 @@ export default {
     eventHub.$on('sessionQty', this.adjSessionQty);
     eventHub.$on('participantQty', this.addPrice)
     eventHub.$on('minParticipants', this.adjMinParticipants);
+    eventHub.$on('currentSessionQty', this.adjSessionQty);
   },
   mounted() {
   }
