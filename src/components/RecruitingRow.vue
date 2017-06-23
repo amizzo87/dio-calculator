@@ -16,8 +16,8 @@
         <td style="/*width:400px;*/">Group #{{segments}}</td>
         <td style="/*width:100px;*/"><select v-model="selected" id="skuSelect" class="geography"><option name="disabled" disabled>Select geography</option><option v-for="(sku, index) in skus" v-if='sku["Product Family"] == "Recruiting"' :value="+index">{{ sku["Product Name"].replace("Recruiting - ", '') }}</option></select></td>
         <td style="/*width:100px;*/"><input v-model="quantity" type="number" min="1" placeholder="# of Participants"/></td>
-        <td><select id="translation" v-model="translator"><option name="translation" disabled>Translation</option><option v-for="(sku, index) in skus" v-if='sku["Product Family"] == "Translation"' :value='sku["List Price"]'>{{ sku["Product Name"] }}</option></select></td>
         <td style="min-width:50px;">${{ calcPrice.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '') }}</td>
+        <td><select id="translation" v-model="translator"><option name="translation" disabled>Translation</option><option v-for="(sku, index) in skus" v-if='sku["Product Family"] == "Translation"' :value='sku["List Price"]'>{{ sku["Product Name"] }}</option></select></td>
       </tr>
       </tbody>
 
@@ -37,11 +37,12 @@ export default {
   props: ['segments', 'priceSetting', 'currentSessionQty'],
   data () {
     return {
-      quantity: null,
+      quantity: 1,
       rowPrice: 0,
       selectedSku: 0,
       translator: 0,
-      selected: 2
+      selected: 2,
+      hasTranslator: false
           }
   },
   methods: {
@@ -54,14 +55,16 @@ export default {
       return +index;
     },
     priceEvent: function (price) {
-
-    eventHub.$emit('recruitingPrice', {id: this.segments, atts: [{ price: price, node: this.segments, participantQty: this.quantity, time: new Date().getTime()}] });
+    eventHub.$emit('recruitingPrice', {id: this.segments, atts: [{ price: price, node: this.segments, participantQty: this.quantity, hasTranslator: this.hasTranslator, translatorCost: this.translator, time: new Date().getTime()}] });
     },
     quantityEvent: function (quantity) {
-    eventHub.$emit('participantQty', {id: this.segments, atts: [{ price: null, node: this.segments, participantQty: quantity, time: new Date().getTime()}] });
+    eventHub.$emit('participantQty', {id: this.segments, atts: [{ price: this.rowPrice, node: this.segments, participantQty: quantity, hasTranslator: this.hasTranslator, translatorCost: this.translator, time: new Date().getTime()}] });
     },
     selected: function () {
     return true;
+    },
+    translatorEvent: function(translatorCost) {
+        eventHub.$emit('translator', {id: this.segments, atts: [{ price: this.rowPrice, node: this.segments, participantQty: this.quantity, hasTranslator: this.hasTranslator, translatorCost: translatorCost, time: new Date().getTime() }] });
     }
 
   },
@@ -79,12 +82,17 @@ export default {
 
     rowPrice: function (newVal) {
           // console.log(newVal);
-
-          this.priceEvent(newVal);
+      this.hasTranslator = (this.translator !== 0);
+      this.priceEvent(newVal);
 
     },
     quantity: function (newVal) {
+      this.hasTranslator = (this.translator !== 0);
       this.quantityEvent(newVal);
+    },
+    translator: function (newVal) {
+      this.translatorEvent(newVal);
+      this.hasTranslator = (newVal !== 0);
     }
 
   },
@@ -94,9 +102,12 @@ export default {
       return this.skus;
     },
     calcPrice: function() {
+      this.hasTranslator = (this.translator !== 0);
       if (this.selectedSku) {
-      var price = (this.skus[this.selectedSku]["List Price"] * this.quantity) + (+this.translator * +this.currentSessionQty);
+      var price = (this.skus[this.selectedSku]["List Price"] * this.quantity); // + +this.translator;
+      // var price = (this.skus[this.selectedSku]["List Price"] * this.quantity);
       this.rowPrice = price;
+
       return price;
       } else {
        return 0;

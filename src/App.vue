@@ -36,8 +36,8 @@
       <div class="row" style="margin-bottom:5em;">
       <div class="col-lg-8">
        <div class="col-lg-12">
-      <div class="row"><div class="col-lg-12"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Project Type</h3></div><div class="panel-body"><projectrow v-bind:priceSetting="priceSetting"></projectrow></div></div></div></div>
-         <div class="row"><div class="col-lg-12"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Consumer Recruiting Quotas</h3><h6>(Price includes incentives)</h6></div><div class="panel-body"><div style="text-align:center;"><label>Number of Consumer Segments:</label> <input style="width:50px;" v-model="segments" type="number" min="1" max="5"/></div><recruitingrow v-for="n in segments" v-bind:segments="n" v-bind:priceSetting="priceSetting" v-bind:currentSessionQty="currentSessionQty"></recruitingrow></div></div></div></div>
+      <div class="row"><div class="col-lg-12"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Project Type</h3></div><div class="panel-body"><projectrow v-bind:priceSetting="priceSetting" v-bind:sumTranslator="sumTranslator"></projectrow></div></div></div></div>
+         <div class="row"><div class="col-lg-12"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Consumer Recruiting Quotas</h3><h6 style="text-align:center;">(Assuming one group per session - price includes incentives)</h6></div><div class="panel-body"><!--<div style="text-align:center;"><label>Number of Consumer Segments:</label> <input style="width:50px;" v-model="segments" type="number" min="1" max="5"/></div>--><recruitingrow v-for="n in segments" v-bind:segments="n" v-bind:priceSetting="priceSetting" v-bind:currentSessionQty="currentSessionQty"></recruitingrow></div></div></div></div>
     <!--<div class="row"><div class="col-lg-12"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Professional Services</h3></div><div class="panel-body"><servicesrow></servicesrow></div></div></div></div>-->
       </div>
       </div>
@@ -46,7 +46,7 @@
           <div class="row">
             <div class="col-lg-12" style="text-align:center;"><label>Required No. of Participants:</label> {{ minParticipants }} </div>
             <div class="col-lg-12" style="text-align:center;" v-bind:style="countSync"><label>Current No. of Participants:</label> {{ participantCount }} </div>
-            <div class="col-lg-12" style="text-align:center;"><label>Number of Consumer Segments: {{ segments }}</label></div>
+            <div class="col-lg-12" style="text-align:center;"><label>Number of Consumer Groups: {{ segments }}</label></div>
           </div>
           <div class="row" style="text-align:center;"><alertrow v-bind:alertObj="alertObj"></alertrow></div>
           </div>
@@ -57,7 +57,7 @@
           <div class="row">
             <div class="col"><label>Required No. of Participants:</label> {{ minParticipants }} </div>
             <div class="col" style="text-align:center;" v-bind:style="countSync"><label>Current No. of Participants:</label> {{ participantCount }} </div>
-            <div class="col" style="text-align:center;"><label>Number of Consumer Segments: {{ segments }}</label></div>
+            <div class="col" style="text-align:center;"><label>Number of Consumer Groups: {{ segments }}</label></div>
           </div>
           <div class="row" style="text-align:center;"><div class="col"><alertrow v-bind:alertObj="alertObj"></alertrow></div></div>
         </div>
@@ -91,6 +91,8 @@ export default {
       techAdded: null,
       minParticipants: 1,
       participantCount: 1,
+      participantsPerSession: 1,
+      sumTranslator: 0,
       countSync: {},
       nodePrices: [],
       alertObj: {},
@@ -113,6 +115,11 @@ export default {
     }
 
     },
+
+    currentSessionQty: function(newVal) {
+        this.segments = newVal;
+    },
+
     minParticipants: function() {
      this.countSync = (this.minParticipants != this.participantCount) ? ({ color:"red" }) : ({color: "green"});
 
@@ -128,17 +135,34 @@ export default {
 
     },
     nodePrices: function () {
-
+    // console.log(this.nodePrices);
     if(this.nodePrices.length > 0) {
 
       var sumPrice = 0;
       var countParticipants = 0;
+      var countTranslators = 0;
+      var translatorCost = 0;
         for (var i in this.nodePrices) {
           sumPrice += this.nodePrices[i]["atts"][0]["price"];
           if (this.nodePrices[i]["atts"][0]["participantQty"]) {
             countParticipants += this.nodePrices[i]["atts"][0]["participantQty"];
           }
+          if (this.nodePrices[i]["atts"][0]["translatorCost"] > 0) {
+              // console.log(this.nodePrices[i]["atts"][0]["translatorCost"]);
+            countTranslators += 1;
+            translatorCost = +this.nodePrices[i]["atts"][0]["translatorCost"];
+          }
         }
+
+      switch(this.currentSessionQty == this.segments) {
+        case true:
+          this.sumTranslator = (countTranslators === 0 ? 0 : (translatorCost*countTranslators));
+          break;
+        default:
+          this.sumTranslator = (countTranslators === 0 ? 0 : (translatorCost*(this.currentSessionQty))/countTranslators);
+      }
+
+
       this.participantCount = countParticipants;
       this.countSync = (this.minParticipants != this.participantCount) ? ({ color:"red" }) : ({color: "green"});
 
@@ -150,7 +174,7 @@ export default {
         "defaultClass" : "alert alert-info",
         "defaultContent" : this.defaultMsg
         }
-      this.totalPrice = ( sumPrice == 0 ? this.totalPrice : sumPrice );
+      this.totalPrice = ( sumPrice == 0 ? this.totalPrice : sumPrice ) + +this.sumTranslator;
 
          // this.participantCount = countParticipants;
 
@@ -181,7 +205,8 @@ export default {
     adjMinParticipants: function (total) {
       this.minParticipants = total;
     },
-    adjParticipantQty: function (qty) {
+    adjParticipantsPerSession: function (val) {
+        this.participantsPerSession = val;
 
     }
     },
@@ -208,9 +233,11 @@ export default {
     eventHub.$on('projectRowPrice', this.addPrice);
     eventHub.$on('servicesRowPrice', this.addPrice);
     eventHub.$on('sessionQty', this.adjSessionQty);
-    eventHub.$on('participantQty', this.addPrice)
+    eventHub.$on('participantQty', this.addPrice);
     eventHub.$on('minParticipants', this.adjMinParticipants);
     eventHub.$on('currentSessionQty', this.adjSessionQty);
+    eventHub.$on('translator', this.addPrice);
+    eventHub.$on('participantsPerSession', this.adjParticipantsPerSession);
   },
   mounted() {
   }

@@ -6,20 +6,22 @@
       <th>Quantity of Sessions</th>
       <th>Technology and Hosting</th>
       <th>Project Setup Fee</th>
+      <th>Translator Fees</th>
       </thead>
       <tbody>
       <tr>
         <td><select v-model="participants">
-          <option value="1">1 Consumer (1v1)</option>
-          <option value="2">2 Consumers (Dyad)</option>
-          <option value="3">3 Consumers (Triad)</option>
-          <option value="4">4 Consumers (Focus Group)</option>
-          <option value="5">5 Consumers (Focus Group)</option>
-          <option value="6">6 Consumers (Focus Group)</option>
+          <option value="1">1 Person (1v1)</option>
+          <option value="2">2 People (Dyad)</option>
+          <option value="3">3 People (Triad)</option>
+          <option value="4">4 People (Focus Group)</option>
+          <option value="5">5 People (Focus Group)</option>
+          <option value="6">6 People (Focus Group)</option>
         </select></td>
         <td><input v-model="sessionQty" type="number" min="1" /></td>
         <td>${{ (techPrice * sessionQty).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '') }}</td>
         <td>${{ (participants == 1 ? idiFee : focusGroupFee).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '') }}</td>
+        <td>${{ sumTranslator.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '') }}</td>
       </tr>
       </tbody>
       </table>
@@ -34,7 +36,7 @@ import { store } from '../main.js'
 
 export default {
   name: 'projectrow',
-  props: ['priceSetting'],
+  props: ['priceSetting', 'sumTranslator'],
   data () {
     return {
       techPrice: (this.priceSetting == 0 ? paygSkus.filter(function( obj ) { return obj["Product Name"] == 'Tech and Hosting' })[0]["List Price"] : subSkus.filter(function( obj ) { return obj["Product Name"] == 'Tech and Hosting' })[0]["List Price"]),
@@ -54,6 +56,9 @@ export default {
     },
     participantEvent: function (val) {
     eventHub.$emit('minParticipants', val);
+    },
+    participantsPerSessionEvent: function(val) {
+      eventHub.$emit('participantsPerSession', val);
     }
   },
   watch: {
@@ -75,6 +80,8 @@ export default {
     var sessionTypeFee = (this.participants == 1 ? this.idiFee : this.focusGroupFee);
     var rowTotalWithFee = (sessionTypeFee + (this.techPrice * this.sessionQty));
     this.priceEvent(rowTotalWithFee);
+    this.participantsPerSessionEvent(newVal);
+
     // this.broadcastEvent();
   },
     priceSetting: function(newVal, oldVal) {
